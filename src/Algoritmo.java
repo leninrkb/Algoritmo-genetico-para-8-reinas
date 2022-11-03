@@ -10,12 +10,29 @@ public class Algoritmo {
         for (int i = 0; i < tab.length; i++) {
             if (Formato.existeSoloUnaRcolumna(tab[i])) {
                 if (Formato.existeSoloUnaRfila(tab,tab[i],i)) {
-                    System.out.println("funciona");
+                    if(Formato.existeSoloUnaRdiagonalAbajoDerecha(tab, tab[i], i)){
+                        if (Formato.existeSoloUnaRdiagonalArribaDerecha(tab, tab[i], i)) {
+                            if (Formato.existeSoloUnaRdiagonalAbajoIzquierda(tab, tab[i], i)) {
+                                if (Formato.existeSoloUnaRdiagonalArribaIzquierda(tab, tab[i], i)) {
+                                }else{
+                                    return false;
+                                }
+                            }else{
+                                return false;
+                            }
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        return false;
+                    }
                 }else{
-                    System.out.println("algo paso");
+                    return false;
                 }
+            }else{
+                return false;
             }
         }
-        return false;
+        return true;
     }  
 }
