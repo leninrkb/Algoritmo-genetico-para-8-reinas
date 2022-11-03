@@ -1,9 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * clase encargada explicitamente de contener
  * los metodos correspodientes al algoritmo 
 */
 public class Algoritmo {
+
+    //genera una poblacion partiendo de una semilla
+    static List<String[]> generarPoblacion(String[] semilla, int densidadPoblacion){
+        List<String[]> poblacion = new ArrayList<>();
+
+        for (int i = 0; i <= densidadPoblacion; i++) {
+            
+        }
+
+        return poblacion;
+    }
 
     //verifico si el tablero es una solucion
     static Boolean esSolucion(String[] tab){

@@ -176,14 +176,6 @@ public class Formato {
         return 7 - pos;
     }
 
-    //devuelve el numero de veces que se debe iterar para comprobar la diagonal abajo izquierda
-    static int vecesIterarAbajoIzquierda(int pos, int itera){
-        int s = 7 - pos;
-        int n = s - itera;
-        int v = 7 - n;
-        return v;
-    }
-
     //imprime el tablero
     static void imprimirTab(String[] tab){
         for (int i = 0; i < tab.length; i++) {
