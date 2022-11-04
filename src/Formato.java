@@ -1,9 +1,25 @@
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * clase encargada de realizar las operaciones
  * que seran llamadas en el algoritmo
 */
 public class Formato {
+
+    //seleciona 4-6-8 padres de forma random - retorna nueva instancia
+    static List<String[]> seleccionarRandom(List<String[]> general){
+        List<String[]> nuevo = new ArrayList<>();
+        int[] n = {4,6,8};
+        int rand = randomEntre(0, 2);
+        for (int i = 0; i < general.size(); i++) {
+            if (i == n[rand]) {
+                break;
+            }
+            nuevo.add(general.get(randomEntre(0, general.size())));
+        }
+        return nuevo;
+    }
 
     //crea un nuevo tablero - retorna nueva instancia
     static String[] crearNuevoTablero(String[] semilla){

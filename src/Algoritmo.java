@@ -7,10 +7,10 @@ import java.util.List;
 */
 public class Algoritmo {
 
-    //selecciono la poblacion inicial del general (4-8)
+    //selecciono la poblacion inicial del general (4-8) - retorna nueva instancia
     static List<String[]> seleccionarPoblacionInicial(List<String[]> poblacionGeneral){
         List<String[]> nueva = new ArrayList<>();
-        
+        nueva = Formato.seleccionarRandom(poblacionGeneral);
         return nueva;
     }
 
