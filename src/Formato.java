@@ -5,7 +5,81 @@
 */
 public class Formato {
 
-    //verifica que la longitud de cada cadena, debe ser 8
+    //crea un nuevo tablero - retorna nueva instancia
+    static String[] crearNuevoTablero(String[] semilla){
+        String[] nuevo = new String[8];
+        nuevo = copiarTablero(semilla);
+
+        int rand = randomEntre(0, 7);
+        nuevo[rand] = crearNuevaCadena(semilla[rand]);
+        return nuevo;
+    }
+
+    //crea una nueva cadena
+    static String crearNuevaCadena(String c){
+        String[] aux = cadenaToArreglo(c); 
+        String s = new String();
+        s = arregloToCadena(aux);
+        int posR = posicionRcadena(s);
+        int rand = randomEntre(0, 7, posR);
+
+        s = reemplazarEnCadena(s, ".", posR);
+        s = reemplazarEnCadena(s, "R", rand);
+        return s;
+    }
+
+    //copia una cadena a un arreglo - retorna nueva instancia
+    static String[] cadenaToArreglo(String c){
+        String[] aux = new String[8]; 
+        for (int i = 0; i < c.length(); i++) {
+            aux[i] = String.valueOf(c.charAt(i));
+        }
+        return aux;
+    }
+
+    //copia una cadena a un arreglo - retorna nueva instancia
+    static String arregloToCadena(String[] c){
+        String aux = new String(); 
+        for (int i = 0; i < c.length; i++) {
+            aux = aux.concat(c[i]);
+        }
+        return aux;
+    }
+
+    //copia un talero - retorna nueva instancia
+    static String[] copiarTablero(String[] old){
+        String[] nuevo = new String[old.length];
+        for (int i = 0; i < old.length; i++) {
+           nuevo[i] = old[i];
+        }
+        return nuevo;
+    }
+
+    //remmplaza un caracter en la posicion dada - retorna nueva instancia
+    static String reemplazarEnCadena(String old, String nw, int pos){
+        String[] aux = cadenaToArreglo(old); 
+        aux[pos] = nw;
+        String n = new String();
+        n = arregloToCadena(aux);
+        return n;
+    }
+
+    //genera un entero randon entre los valores dados
+    static int randomEntre(int ini, int fin) {
+        int valorEntero = (int) Math.floor(Math.random()*(fin-ini+1)+ini); 
+        return valorEntero;
+    }
+
+    //genera un entero random  diferente del dado
+    static int randomEntre(int ini, int fin, int dif) {
+        int rand = 0;
+        do {
+            rand = randomEntre(ini, fin);
+        } while (rand == dif);
+        return rand;
+    }
+
+    //verifica la longitud de cada cadena, debe ser 8
     static Boolean verificarLongTab(String[] tab){
         for (int i = 0; i < tab.length; i++) {
             if (tab[i].length() != 8) {
@@ -181,5 +255,6 @@ public class Formato {
         for (int i = 0; i < tab.length; i++) {
             System.out.println(tab[0].charAt(i)+" "+tab[1].charAt(i)+" "+tab[2].charAt(i)+" "+tab[3].charAt(i)+" "+tab[4].charAt(i)+" "+tab[5].charAt(i)+" "+tab[6].charAt(i)+" "+tab[7].charAt(i));
         }
+        System.out.println("");
     }
 }
