@@ -7,6 +7,12 @@ import java.util.List;
 */
 public class Formato {
 
+    //cuanta los ataques de un tablero
+    public static int contarAtaques(String[] strings) {
+        int filas = contarRfila(strings, null, 0);
+        return 0;
+    }
+
     //seleciona 4-6-8 padres de forma random - retorna nueva instancia
     static List<String[]> seleccionarRandom(List<String[]> general){
         List<String[]> nuevo = new ArrayList<>();
@@ -106,6 +112,7 @@ public class Formato {
         return true;
     }
 
+    ///////////////////////////////////////verificacion
     //verifica que exista solo una R por  columna
     static Boolean existeSoloUnaRcolumna(String c){
         int a = 0;
@@ -250,7 +257,25 @@ public class Formato {
         return false;
     }
 
+    ////////////////////////////////para contar
+    //verifica que exista solo una R en la fila correspondiente
+    static int contarRfila(String[] tab, String c){
+        int a = 0;
 
+        for (int i = 0; i < c.length(); i++) {
+            if (c.charAt(i) == 'R') {
+                a++;
+                for (int j = 0; j < tab.length; j++) {
+                    if (tab[j].charAt(i) == 'R') {
+                        a++;
+                    }
+                }
+            }           
+        }
+        return a;
+    }
+
+    ////////////////////////////////////////////////////////
     //devuelve la posicion de la R en la cadena
     static int posicionRcadena(String c){
         for (int i = 0; i < c.length(); i++) {
@@ -273,4 +298,6 @@ public class Formato {
         }
         System.out.println("");
     }
+
+    
 }

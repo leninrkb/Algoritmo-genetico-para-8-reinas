@@ -3,8 +3,8 @@ import java.util.List;
 
 public class App {
     public static void main(String[] args) throws Exception {
-         String[] semilla = { "....R...", "..R.....", "R.......", ".....R..",".......R", ".R......", "...R....","......R." };
-        //String[] semilla = { ".R......", "....R...", "..R.....", "...R....", "......R.", ".R......", "...R....", "......R." };
+        //String[] semilla = { "....R...", "..R.....", "R.......", ".....R..",".......R", ".R......", "...R....","......R." };
+        String[] semilla = { ".R......", "....R...", "..R.....", "...R....", "......R.", ".R......", "...R....", "......R." };
         // String[] semilla = Formato.crearNuevoTablero(tabInicial);
         // Formato.imprimirTab(semilla);
 
@@ -21,9 +21,10 @@ public class App {
                 List<String[]> poblacionInicial = new ArrayList<>();
                 poblacionInicial = Algoritmo.seleccionarPoblacionInicial(poblacionGeneral);
 
+                List<String[]> padres = new ArrayList<>();
                 // comiezo iteraciones
                 do {
-
+                    padres = Algoritmo.seleccionarPadres(poblacionInicial);
                 } while (true);
             }
 
