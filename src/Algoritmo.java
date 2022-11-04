@@ -10,6 +10,7 @@ public class Algoritmo {
     //selecciono la poblacion inicial del general (4-8)
     static List<String[]> seleccionarPoblacionInicial(List<String[]> poblacionGeneral){
         List<String[]> nueva = new ArrayList<>();
+        
         return nueva;
     }
 
