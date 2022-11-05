@@ -9,7 +9,7 @@ public class Algoritmo {
 
     //realizo la mutacion
     static List<String[]> mutacion(List<String[]> hijos){
-        int mutar = Formato.randomEntre(1, 8);
+        int mutar = Formato.randomEntre(0, 7);
         return Formato.mutarHijos(mutar, hijos);
     }
 
@@ -58,6 +58,7 @@ public class Algoritmo {
 
     //verifico si el tablero es una solucion
     static Boolean esSolucion(String[] tab){
+        //Formato.imprimirTab(tab);
         for (int i = 0; i < tab.length; i++) {
             if (Formato.existeSoloUnaRcolumna(tab[i])) {
                 if (Formato.existeSoloUnaRfila(tab,tab[i],i)) {

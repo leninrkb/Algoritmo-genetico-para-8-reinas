@@ -24,15 +24,23 @@ public class App {
                 List<String[]> padres = new ArrayList<>();
                 List<String[]> hijos = new ArrayList<>();
                 // comiezo iteraciones
+                int i = 0;
                 do {
+                    hijos = null;
                     padres = Algoritmo.seleccionarPadres(poblacionInicial);
                     hijos = Algoritmo.cruze(padres);
                     poblacionInicial.remove(padres.get(0));
                     poblacionInicial.remove(padres.get(1));
                     padres = null;
                     hijos = Algoritmo.mutacion(hijos);
-
-                } while (false);
+                    poblacionInicial.add(hijos.get(0));
+                    poblacionInicial.add(hijos.get(1));
+                    
+                    i++;
+                    System.out.println(i);
+                } while (Algoritmo.esSolucion(hijos.get(0)) == false );
+                Formato.imprimirTab(hijos.get(0));
+                Formato.imprimirTab(hijos.get(1));
             }
 
         } else {

@@ -9,7 +9,15 @@ import java.util.List;
 public class Formato {
 
     static List<String[]> mutarHijos(int mutar, List<String[]> hijos){
+        int mutarHijo = Formato.randomEntre(0, 1);
         List<String[]> nuevos = new ArrayList<>();
+        hijos.get(mutarHijo)[mutar] = crearNuevaCadena(hijos.get(mutarHijo)[mutar]);
+        nuevos.add(hijos.get(mutarHijo));
+        if (mutarHijo == 0) {
+            nuevos.add(hijos.get(1));
+        }else{
+            nuevos.add(hijos.get(0));
+        }
         return nuevos;
     }
 
@@ -75,10 +83,6 @@ public class Formato {
         rand = randomEntre(0, 99);
         seleccionado = vec[rand].tablero;
         return seleccionado;
-    }
-
-    static int randomDif(int ini, int en){
-        return 0;
     }
 
     //calculo prob de los candidatos 
