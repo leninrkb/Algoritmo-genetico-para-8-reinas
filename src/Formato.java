@@ -8,7 +8,40 @@ import java.util.List;
 */
 public class Formato {
 
-    //selecciono los padres conforme a un individuo femenino
+    static List<String[]> mutarHijos(int mutar, List<String[]> hijos){
+        List<String[]> nuevos = new ArrayList<>();
+        return nuevos;
+    }
+
+    //realixo el cruze en base al criterio de corte
+    static List<String[]> cruzar(int corte, List<String[]> padres){
+        List<String[]> nuevos = new ArrayList<>();
+        String[] corte1 = new String[8];
+        String[] corte2 = new String[8];
+
+        
+        for (int j = 0; j < 8; j++) {
+            if (j <= corte) {
+                corte1[j] = padres.get(0)[j];
+            }else{
+                corte1[j] = padres.get(1)[j];
+            }
+
+            if (j <= corte) {
+                corte2[j] = padres.get(1)[j];
+            }else{
+                corte2[j] = padres.get(0)[j];
+            }
+        }
+
+        nuevos.add(corte1);
+        nuevos.add(corte2);
+
+        return nuevos;
+        
+    }
+
+    //selecciono los padres conforme a un individuo femenino 
     static List<String[]> seleccionarPadres(Individuo femenino, List<Individuo> candidatos){
         List<String[]> padres = new ArrayList<>();
         padres.add(femenino.tablero);

@@ -22,11 +22,17 @@ public class App {
                 poblacionInicial = Algoritmo.seleccionarPoblacionInicial(poblacionGeneral);
 
                 List<String[]> padres = new ArrayList<>();
+                List<String[]> hijos = new ArrayList<>();
                 // comiezo iteraciones
                 do {
                     padres = Algoritmo.seleccionarPadres(poblacionInicial);
-                    padres.size();
-                } while (true);
+                    hijos = Algoritmo.cruze(padres);
+                    poblacionInicial.remove(padres.get(0));
+                    poblacionInicial.remove(padres.get(1));
+                    padres = null;
+                    hijos = Algoritmo.mutacion(hijos);
+
+                } while (false);
             }
 
         } else {

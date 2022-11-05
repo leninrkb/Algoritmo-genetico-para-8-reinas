@@ -7,6 +7,19 @@ import java.util.List;
 */
 public class Algoritmo {
 
+    //realizo la mutacion
+    static List<String[]> mutacion(List<String[]> hijos){
+        int mutar = Formato.randomEntre(1, 8);
+        return Formato.mutarHijos(mutar, hijos);
+    }
+
+    //realizo el crossover
+    static List<String[]> cruze(List<String[]> padres){
+        int corte = Formato.randomEntre(1, 8);
+        return Formato.cruzar(corte, padres);
+    }
+
+    //selecciono los padres de forma random del vector de probabilidades
     static List<String[]> seleccionarPadres(List<String[]> poblacion){
         List<String[]> padres = new ArrayList<>();
         List<Individuo> indList = new ArrayList<>();
