@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /*
@@ -11,31 +12,65 @@ public class Formato {
     static List<String[]> seleccionarPadres(Individuo femenino, List<Individuo> candidatos){
         List<String[]> padres = new ArrayList<>();
         padres.add(femenino.tablero);
-        calcularProbCandidatos(femenino.ataques, candidatos);
+        padres.add(generarRuleta(calcularProbCandidatos(femenino.ataques, candidatos)));
         return padres;
     }
 
-    //calculo prob de los candidatos
-    static void calcularProbCandidatos(int mod, List<Individuo> candidatos){        
+    //forma la ruleta de probabilidades
+    static String[] generarRuleta(List<Individuo> candidatos){
+        Individuo[] vec = new Individuo[100];
+        String[] seleccionado = new String[8];
+        HashMap<Integer,String> nums = new HashMap<>();
+        int rand = 0;
+        for (int i = 0; i < candidatos.size()-1; i++) {
+            for (int j = 0; j < candidatos.get(i).prob; j++) {
+                do {
+                    rand = randomEntre(0, 99);
+                    if (!nums.containsKey(rand)) {
+                        nums.put(rand, "");
+                        break;
+                    }
+                } while (true);
+                vec[rand] = candidatos.get(i);
+            }
+        }
+        for (int i = 0; i < vec.length; i++) {
+            if (vec[i]==null) {
+                vec[i]=candidatos.get(candidatos.size()-1);
+            }
+        }
+        rand = randomEntre(0, 99);
+        seleccionado = vec[rand].tablero;
+        return seleccionado;
+    }
+
+    static int randomDif(int ini, int en){
+        return 0;
+    }
+
+    //calculo prob de los candidatos 
+    static List<Individuo> calcularProbCandidatos(int mod, List<Individuo> candidatos){        
         int  denominador = candidatos.size()+1;
         int interaciones = candidatos.size();
         List<Individuo> inds = new ArrayList<>();
         double suma = 0;
         int porc = 0;
+
         for (int i = 0; i < interaciones; i++) {
             inds.add(mayorAtaqueCandidato(candidatos));
         }
-
         for (int i = 0; i < inds.size(); i++) {
             inds.get(i).peso = ((i+1)*100)/denominador;
             suma += inds.get(i).peso;
         }
-
         for (int i = 0; i < inds.size(); i++) {
             inds.get(i).prob = (int) Math.floor((inds.get(i).peso*100)/suma);
             porc += inds.get(i).prob;
         }
-        int s = 0;
+        int dif = 100 - porc;
+        inds.get(inds.size()-1).prob+=dif;
+
+        return inds;
     }
 
     //retorna el mayor de la lista
