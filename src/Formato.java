@@ -164,6 +164,18 @@ public class Formato {
     }
 
     //crea un nuevo tablero - retorna nueva instancia
+    static String[] crearNuevoTablero(){
+        String[] nuevo = {"R.......","R.......","R.......","R.......","R.......","R.......","R.......","R......."};
+        int rand=0;
+        for (int i = 0; i < nuevo.length; i++) {
+            rand = randomEntre(0, 7);
+            nuevo[rand] = crearNuevaCadena(nuevo[rand]);
+        }
+        
+        return nuevo;
+    }
+
+    //crea un nuevo tablero - retorna nueva instancia
     static String[] crearNuevoTablero(String[] semilla){
         String[] nuevo = new String[8];
         nuevo = copiarTablero(semilla);
