@@ -7,10 +7,74 @@ import java.util.List;
 */
 public class Formato {
 
+    //selecciono los padres conforme a un individuo femenino
+    static List<String[]> seleccionarPadres(Individuo femenino, List<Individuo> candidatos){
+        List<String[]> padres = new ArrayList<>();
+        padres.add(femenino.tablero);
+        calcularProbCandidatos(femenino.ataques, candidatos);
+        return padres;
+    }
+
+    //calculo prob de los candidatos
+    static void calcularProbCandidatos(int mod, List<Individuo> candidatos){        
+        int  denominador = candidatos.size()+1;
+        int interaciones = candidatos.size();
+        List<Individuo> inds = new ArrayList<>();
+        double suma = 0;
+        int porc = 0;
+        for (int i = 0; i < interaciones; i++) {
+            inds.add(mayorAtaqueCandidato(candidatos));
+        }
+
+        for (int i = 0; i < inds.size(); i++) {
+            inds.get(i).peso = ((i+1)*100)/denominador;
+            suma += inds.get(i).peso;
+        }
+
+        for (int i = 0; i < inds.size(); i++) {
+            inds.get(i).prob = (int) Math.floor((inds.get(i).peso*100)/suma);
+            porc += inds.get(i).prob;
+        }
+        int s = 0;
+    }
+
+    //retorna el mayor de la lista
+    static Individuo mayorAtaqueCandidato(List<Individuo> candidatos){
+        Individuo ind = new Individuo();
+        ind = candidatos.get(0);
+        for (int i = 0; i < candidatos.size(); i++) {
+            if (ind.ataques < candidatos.get(i).ataques) {
+                ind = candidatos.get(i);
+            }
+        }
+        candidatos.remove(ind);
+        return ind;
+    }
+
     //cuanta los ataques de un tablero
     public static int contarAtaques(String[] strings) {
-        int filas = contarRfila(strings, null, 0);
-        return 0;
+        int a = 0;
+        for (int i = 0; i < strings.length; i++) {
+            if(contarRcolumna(strings[i]) > 1){
+                a++;
+            }
+            if(contarRfila(strings, strings[i], i) > 1){
+                a++;
+            }
+            if(contarRdiagonalAbajoDerecha(strings, strings[i], i) > 1){
+                a++;
+            }
+            if(contarRdiagonalArribaDerecha(strings, strings[i], i) > 1){
+                a++;
+            }
+            if(contarRdiagonalAbajoIzquierda(strings, strings[i], i) > 1){
+                a++;
+            }
+            if(contarRdiagonalArribaIzquierda(strings, strings[i], i) > 1){
+                a++;
+            }
+        }
+        return a;
     }
 
     //seleciona 4-6-8 padres de forma random - retorna nueva instancia
@@ -22,7 +86,7 @@ public class Formato {
             if (i == n[rand]) {
                 break;
             }
-            nuevo.add(general.get(randomEntre(0, general.size())));
+            nuevo.add(general.get(randomEntre(0, general.size()-1)));
         }
         return nuevo;
     }
@@ -116,6 +180,7 @@ public class Formato {
     //verifica que exista solo una R por  columna
     static Boolean existeSoloUnaRcolumna(String c){
         int a = 0;
+        
         for (int i = 0; i < c.length(); i++) {
             if (c.charAt(i) == 'R') {
                 a++;
@@ -258,20 +323,120 @@ public class Formato {
     }
 
     ////////////////////////////////para contar
-    //verifica que exista solo una R en la fila correspondiente
-    static int contarRfila(String[] tab, String c){
+    static int contarRcolumna(String c){
         int a = 0;
+        for (int i = 0; i < c.length(); i++) {
+            if (c.charAt(i) == 'R') {
+                a++;
+            }           
+        }
+        return a;
+    }
+
+    //verifica que exista solo una R en la fila correspondiente
+    static int contarRfila(String[] tab, String c, int pos){
+        int a = 0;
+        
+        if ((pos+1) == 8) {
+            return a;
+        }
 
         for (int i = 0; i < c.length(); i++) {
             if (c.charAt(i) == 'R') {
                 a++;
-                for (int j = 0; j < tab.length; j++) {
+                for (int j = (pos+1); j < tab.length; j++) {
                     if (tab[j].charAt(i) == 'R') {
                         a++;
                     }
                 }
             }           
         }
+        return a;
+    }
+
+
+    static int contarRdiagonalAbajoDerecha(String[] tab, String c, int pos){
+        int a = 0;
+
+        if ((pos+1) == 8) {
+            return a;
+        }
+
+        int posR = posicionRcadena(c);
+        int vecesIterar = vecesIterarAbajo(posR);
+        for (int i = pos; i < tab.length; i++) {
+            if (vecesIterar < 0) {
+                break;
+            }
+            if (tab[i].charAt(posR) == 'R') {
+                a++;
+            }
+            posR++;
+            vecesIterar--;
+        }
+        return a;
+    }
+
+    static int contarRdiagonalArribaDerecha(String[] tab, String c, int pos){
+        int a = 0;
+
+        if ((pos+1) == 8) {
+            return a;
+        }
+
+        int posR = posicionRcadena(c);
+        for (int i = pos; i < tab.length; i++) {
+            if (posR < 0) {
+                break;
+            }
+            if (tab[i].charAt(posR) == 'R') {
+                a++;
+            }
+            posR--;
+        }
+
+        return a;
+    }
+
+    static int contarRdiagonalAbajoIzquierda(String[] tab, String c, int pos){
+        int a = 0;
+
+        if (pos == 0) {
+            return a;
+        }
+
+        int posR = posicionRcadena(c);
+        for (int i = pos; i >= 0; i--) {
+            if (posR > 7) { 
+                break;
+            }
+            if (tab[i].charAt(posR) == 'R') {
+                a++;
+            }
+            posR++  ;
+        }
+
+        return a;
+    }
+
+    static int contarRdiagonalArribaIzquierda(String[] tab, String c, int pos){
+        int a = 0;
+
+        if (pos == 0) {
+            return a;
+        }
+
+        int posR = posicionRcadena(c);
+        for (int i = pos; i >= 0; i--) {
+            if (posR < 0) { 
+                break;
+            }
+            if (tab[i].charAt(posR) == 'R') {
+                a++;
+            }
+            posR--;
+        }
+
         return a;
     }
 

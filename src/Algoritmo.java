@@ -9,10 +9,16 @@ public class Algoritmo {
 
     static List<String[]> seleccionarPadres(List<String[]> poblacion){
         List<String[]> padres = new ArrayList<>();
-        int rand = Formato.randomEntre(0, padres.size());
-        int ataques = Formato.contarAtaques(padres.get(rand));
-        int  compatibilidad = 0;
-        Individuo femenino = new Individuo(padres.get(rand),ataques,compatibilidad);
+        List<Individuo> indList = new ArrayList<>();
+        for (int i = 0; i < poblacion.size(); i++) {
+            Individuo ind = new Individuo(poblacion.get(i),Formato.contarAtaques(poblacion.get(i)),0);
+            indList.add(ind);
+        }
+
+        Individuo femenino = new Individuo();
+        femenino = indList.get(Formato.randomEntre(0, indList.size()-1));
+        indList.remove(femenino);
+        padres = Formato.seleccionarPadres(femenino,indList);
 
         return padres;
     }

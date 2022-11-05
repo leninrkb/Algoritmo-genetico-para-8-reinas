@@ -25,6 +25,7 @@ public class App {
                 // comiezo iteraciones
                 do {
                     padres = Algoritmo.seleccionarPadres(poblacionInicial);
+                    padres.size();
                 } while (true);
             }
 
